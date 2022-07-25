@@ -4,7 +4,11 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const config = new DocumentBuilder().build();
+  const config = new DocumentBuilder()
+    .setTitle('Tormenta 20 API')
+    .setDescription('O sistema de criação de fichas do Tormenta 20')
+    .setVersion('1.0')
+    .build();
   const document = SwaggerModule.createDocument(app, config);
 
   SwaggerModule.setup('api', app, document);
