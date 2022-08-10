@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Character{
+  id String @id
+  name String
+  race Race @relation(fields: [raceId], references: [id])
+  raceId String
+  divinity Divinity @relation(fields: [divinityId], references: [id])
+  divinityId String
+  role Role @relation(fields: [roleId], references: [id])
+  roleId String
+  backstory Backstory @relation(fields: [backstoryId], references: [id])
+  backstoryId String
+}
+
+model Race{
+  id String @id
+  name String @unique
+  characters Character[]
+}
+
+model Role{
+  id String @id
+  name String @unique
+  characters Character[]
+}
+
+model Backstory{
+  id String @id
+  name String @unique
+  characters Character[]
+}
+
+model Divinity{
+  id String @id
+  name String @unique
+  characters Character[]
+}
